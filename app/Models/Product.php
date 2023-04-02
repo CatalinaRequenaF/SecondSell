@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Product extends Model
 {
@@ -17,30 +18,29 @@ class Product extends Model
         'state'
     ];
 
-    //Pertenece a 
+    //----------Pertenece a ---------------
     public function user(): BelongsTo
 {
-    return $this->belongsTo(User::class, 'foreign_key');
+    return $this->belongsTo(User::class);
 }
 
-   //Pertenece a 
    public function category(): BelongsTo
    {
-       return $this->belongsTo(Category::class, 'foreign_key');
+       return $this->belongsTo(Category::class);
    }
+
    
-
-
+   
+   
     //Tiene muchos
     public function tags(): HasMany
     {
         return $this->hasMany(Tag::class);
     }
 
-    public function images(): HasMany
+    public function images(): MorphMany
     {
-        return $this->hasMany(Image::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
-
 
 }

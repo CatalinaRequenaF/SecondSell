@@ -16,18 +16,15 @@ class Cart extends Model
 
 
     //Pertenece a 
-    /**
-     * Summary of user
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function session(): BelongsTo
+    //Tiene uno
+    public function orders(): HasMany
     {
-        return $this->belongsTo(Session::class);
+        return $this->hasMany(Order::class);
     }
 
     //Tiene muchos

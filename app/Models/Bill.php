@@ -10,7 +10,8 @@ class Bill extends Model
 {
     use HasFactory;
 
-    public function seller(): BelongsTo
+    //En este caso se aplica una lógica tipo 1 Producto = 1 Factura
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
     }
