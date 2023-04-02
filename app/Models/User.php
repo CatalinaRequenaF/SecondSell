@@ -57,13 +57,10 @@ class User extends Authenticatable
         return $this->hasOne(Session::class);
     }
 
-
     public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
     }
-
-
 
     //---------------------Tiene muchos------------------------
     public function roles(): HasMany

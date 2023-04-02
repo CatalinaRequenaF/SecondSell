@@ -37,7 +37,9 @@ class Order extends Model
         return $this->hasOne(Bill::class);
     }
 
-    //Tiene varios
+    //Tiene varios (He creado 1-Product y 2-orderItems para más flexibilidad. Un producto puede tener muchas
+    //propiedades, cambiar de precio, estado... pero el orderItem tiene x precio final, y está pensado para
+    //definirse en una factura)
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);

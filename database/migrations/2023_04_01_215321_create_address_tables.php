@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('street');
-            $table->number('number');
+            $table->bigInteger('number');
             $table->string('complement');
             $table->string('city');
             $table->string('state');
             $table->string('country');
             $table->string('zip_code');
-            $table->string('state');
-
 
 
 
