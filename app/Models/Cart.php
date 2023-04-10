@@ -21,7 +21,7 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    //Tiene uno
+    //Tiene muchos
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
