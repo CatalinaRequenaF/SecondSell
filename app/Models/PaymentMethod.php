@@ -11,7 +11,7 @@ class PaymentMethod extends Model
     use HasFactory;
 
     //Obtiene todos los usuarios a los que se les ha asignado el método de pago
-    public function users(): MorphToMany
+        public function users(): MorphToMany
     {
         return $this->morphedByMany(User::class, 'payable');
     }

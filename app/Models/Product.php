@@ -18,29 +18,39 @@ class Product extends Model
         'state'
     ];
 
-    //----------Pertenece a ---------------
+    //-----------------------RELACIONES--------------------
+    //El producto está puesto en venta por un usuario
     public function user(): BelongsTo
 {
     return $this->belongsTo(User::class);
 }
 
+    //Pertenece a una categoría
    public function category(): BelongsTo
    {
        return $this->belongsTo(Category::class);
-   }
-
+   }  
    
-   
-   
-    //Tiene muchos
+    //Puede tener etiquetas para facilitar la búsqueda
     public function tags(): HasMany
     {
         return $this->hasMany(Tag::class);
     }
 
+    //Puede tener imágenes, followers y descuentos
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function followers(): MorphMany
+    {
+        return $this->morphMany(Follow::class, 'followable');
+    }
+
+    public function discount(): MorphMany
+    {
+        return $this->morphMany(Discount::class, 'discountable');
     }
 
 }

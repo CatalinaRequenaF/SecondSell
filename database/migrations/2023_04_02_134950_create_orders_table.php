@@ -14,6 +14,14 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            //Precio neto 
+            $table->float('subtotal');
+            //Precio final
+            $table->float('total');
+            //Estado (en pausa, en proceso, completado)
+            $table->string('status');
+
+            $table->foreignId('user_id');
         });
     }
 

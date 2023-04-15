@@ -11,15 +11,18 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+    //Un OrderItem se genera a partir de un producto en concreto
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
- 
-    public function discounts(): HasMany
+
+    //Los items pertenecen a un pedido
+    public function order(): BelongsTo
     {
-        return $this->hasMany(Discount::class);
+        return $this->belongsTo(Order::class);
     }
+
 
 
 }

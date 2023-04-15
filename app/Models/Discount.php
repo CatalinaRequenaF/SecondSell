@@ -10,8 +10,17 @@ class Discount extends Model
 {
     use HasFactory;
 
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'percent'
+    ];
     
-    //Podría aplicarse por producto, por usuario, por categoría...
+    //Un descuento puede aplicarse por producto, por usuario o por categoría.
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

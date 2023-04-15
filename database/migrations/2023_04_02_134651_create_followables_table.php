@@ -12,14 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('followables', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-
-            $table->string('');
-
-            /*    tag_id - integer
-            taggable_id - integer
-            taggable_type - string*/
+            $table->string('followable_type');
+            $table->string('followable_id');
+            $table->string('follow_id');
         });
     }
 

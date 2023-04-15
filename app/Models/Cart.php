@@ -14,20 +14,20 @@ class Cart extends Model
 {
     use HasFactory;
 
-
-    //Pertenece a 
+    //---------------------------RELACIONES-------------------------//
+    //Un carrito pertenece a un usuario.
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    //Tiene muchos
+    //Desde un carrito se pueden hacer varios pedidos.
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    //Tiene muchos
+    //Un carrito contiene uno o más productos.
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

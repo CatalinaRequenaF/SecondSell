@@ -20,12 +20,10 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('country');
-            $table->string('zip_code');
+            $table->string('postal_code');
+            $table->boolean('is_primary');
 
-
-
-
-
+            $table->foreignId('user_id');
         });
     }
 

@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->bigInteger('percent');
+            $table->float('oldprice')->nullable();
+            $table->float('new_price')->nullable();
+            $table->foreignId('user_id')->nullable();
         });
     }
 

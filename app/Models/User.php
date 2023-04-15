@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,7 +51,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //Usuario tiene (1:1)    
+    //---------------------------------------------RELACIONES----------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------
+    //Usuario tiene un teléfono, una sesión y un carrito
     public function phone(): HasOne
     {
         return $this->hasOne(Phone::class);
@@ -66,7 +69,7 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
-    //---------------------Tiene muchos------------------------
+    //---------------------Tiene muchos roles, direcciones------------------------
     public function roles(): HasMany
     {
         return $this->hasMany(Role::class);
@@ -76,27 +79,40 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class);
     }
-    
-    
+        
     //---------------------Polimorficas-------------------------
-    //Tiene imágenes y métodos de pago
-    public function images(): MorphMany
+    //Puede tener varias imágenes en su perfil y varios métodos de pago
+    public function pictures(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }
     
-    public function paymentMethod(): MorphMany
+    //Métodos de pago
+    public function paymentMethod(): MorphToMany
     {
-        return $this->morphMany(paymentMethod::class, 'payable');
+        return $this->morphToMany(paymentMethod::class, 'payable');
     }
 
-    //Puede ser seguido
-    public function tags(): MorphToMany
+    //Un usuario puede ser seguido por otros usuarios, llamados 'followers'.
+    public function followers(): MorphToMany
     {
-        return $this->morphToMany(Tag::class, 'followable');
+        return $this->morphedByMany(Follow::class, 'followable');
     }
 
-    //-----------Productos comprados y vendidos-------------
+    //Un usuario puede seguir a otros usuarios, a productos o a categorías que le interesen.
+    public function followed(): MorphToMany
+    {
+        return $this->morphToMany(Follow::class, 'followable');
+    }
+
+    //Un usuario, por alguna razón, podría tener descuentos en la compra de productos.
+    public function discount(): MorphMany
+    {
+        return $this->morphMany(Discount::class, 'discountable');
+    }
+
+    //-----------------LISTA DE PRODUCTOS COMPRADOS Y VENDIDOS--------------------
+    //----------------------------------------------------------------------------
     public function productsSold()
     {
         return $this->hasMany(Product::class, 'seller_id');
@@ -107,7 +123,8 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'buyer_id');
     }
 
-    //-------------------Reviews escritas----------------------
+    //----------REVIEWS DE LOS PRODUCTOD VENDIDOS Y COMPRADOS (Hechas y recibidas)-----------
+    //---------------------------------------------------------------------------------------
     public function reviewsWritten()
     {
         return $this->hasMany(Review::class, 'from_user_id');

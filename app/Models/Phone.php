@@ -10,6 +10,8 @@ class Phone extends Model
 {
     use HasFactory;
     
+
+    //Un teléfono pertenece a un usuario
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

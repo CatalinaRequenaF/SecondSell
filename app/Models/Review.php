@@ -12,19 +12,20 @@ class Review extends Model
     use HasFactory;
 
 
-   //Pertenece a (Quien la escribe, el vendedor está relacionado indirectamente con el producto)
+   //Pertenece a un usuario que escribe dicha reseña. El usuario vendedor estará relacionado indirectamente a través del producto.
    public function user(): BelongsTo
    {
        return $this->belongsTo(User::class);
    }
 
+   //Pertenece a un producto en concreto, una vez se haya completado la transacción y se haya entregado.
    public function product(): BelongsTo
    {
        return $this->belongsTo(Product::class);
    }
        
 
-    //----Polimorfica (tiene imágenes)
+    //Generalmente tendrá imágenes.
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');

@@ -15,10 +15,17 @@ class Tag extends Model
     ];
 
 
-    //Pertenece a 
-    public function product(): BelongsTo
+    //Pertenece a uno o más productos
+    public function products(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
+    //Pueden pertenecer a categorías:
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    
 }

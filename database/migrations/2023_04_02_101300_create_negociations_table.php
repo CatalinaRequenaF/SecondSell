@@ -17,12 +17,14 @@ return new class extends Migration
 
             $table->string('actual_price');
             $table->string('proposed_price');
-
-            //Fk's
+            $table->string('state');
+            
+            //Llaves foráneas del posible comprador, el vendedor y el producto en cuestión
             $table->foreignId('product_id');
             $table->foreignId('seller_id');
             $table->foreignId('buyer_id');
                 
+            //Al no seguir la nomenclatura oficial, especifico la referencia de las llaves foráneas
             $table->foreign('seller_id')->references('id')->on('users');
             $table->foreign('buyer_id')->references('id')->on('users');
         });

@@ -7,7 +7,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Address extends Model
 {
     use HasFactory;
+
     
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'street',
+        'number',
+        'complement',
+        'city',
+        'state',
+        'country',
+        'postal_code',
+        'is_primary',
+        'user_id'
+    ];
+    
+    //Una dirección pertenece a un usuario.
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
