@@ -25,4 +25,10 @@ class Negociation extends Model
         }
 
         //Hay que tener en cuenta que activo y pasivo no significan lo mismo que comprador o vendedor: el comprador puede hacer una oferta, y el vendedor otra, siendo así activos, pasivos y viceversa.
+
+        //Por último, la negociación gira en torno a un producto
+        public function product(): BelongsTo
+        {
+            return $this->belongsTo(Product::class);
+        }
     }
