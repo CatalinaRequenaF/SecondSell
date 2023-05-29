@@ -25,6 +25,7 @@ class Order extends Model
         return $this->belongsTo(PaymentMethod::class);
     }
 
+    //No estoy segura de que sea necesario
     public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class);

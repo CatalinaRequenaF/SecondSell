@@ -17,7 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price');
             $table->text('state'); //Muy usado, semi nuevo, nuevo
-            $table->boolean('selled'); //Vendido o no
+            $table->string('active'); //Disponible (o no)
+            $table->timestamps();
+
 
             //Fk's
             $table->foreignId('seller_id');

@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\OrderController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\CommunityController;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,25 +25,24 @@ use App\Http\Controllers\Api\CommentController;
 //######################## USUARIO ############################
 
 //--------------------Perfil del usuario (Sanctum)----------------------------
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 //--------------------Registro de usuarios----------------------------
-Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:api')->post('/register');
 
 //--------------------Login de usuarios----------------------------
-Route::post('/login', [AuthController::class, 'login']);
-
+Route::middleware('auth:api')->post('/login');
 
 
 
 //########### RUTAS QUE REQUIEREN INICIO DE SESIÓN/AUTORIZACIÓN #########
 
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth:api')->group(function(){
 
     //--Hacer Logout---------------------------------------
-    Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('logout');
     
     //--Crear, actualizar y borrar categorías--------------
     Route::apiResource('categories', CategoryController::class)->except([
@@ -52,9 +54,30 @@ Route::middleware('auth:sanctum')->group(function(){
         'index', 'show'
     ]);
 
+    //--Direcciones 
+     Route::apiResource('{user/address', AddressController::class);
+
+    //--Carrito 
+    Route::apiResource('{user}/cart', CartController::class);
+
+    //Teléfono
+    Route::apiResource('{user}/phone', CartController::class);
+
+    //Descuento
+    Route::apiResource('{id}/discount', DiscountController::class);
+
+    //--seguidores 
+    Route::apiResource('{user}/followers', FollowController::class);
+    Route::apiResource('{user}/followed', FollowController::class);
+
+    //Imágenes de producto
+
+    //Pedidos
+    Route::apiResource('{user}/order', OrderController::class);
+
 });
 
-//Grupo que no requiere autorizacion
+//#################### Grupo que no requiere autorizacion ####################
 
 //Ver todas las categorías
 Route::apiResource('categories', CategoryController::class)->only([
@@ -65,3 +88,6 @@ Route::apiResource('categories', CategoryController::class)->only([
 Route::apiResource('products', ProductController::class)->only([
     'index', 'show'
 ]);
+
+//Imágenes de producto
+Route::apiResource('{product}/image', ProductController::class);

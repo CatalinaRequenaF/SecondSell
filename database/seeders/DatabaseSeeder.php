@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Cart;
+use App\Models\Category;
+use App\Models\OrderItem;
+use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +18,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        Category::factory(10)->create();
 
+        //Creación de 10 usuarios
+        User::factory(10)
+        //2 direcciones por usuario
+        ->hasAddresses(2)
+        ->hasCart()
+        ->hasPhone()
+        ->hasProducts(3)
+        ->create();
+    
+
+
+        
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
     }
 }

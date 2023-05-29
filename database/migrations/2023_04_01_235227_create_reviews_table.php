@@ -18,11 +18,10 @@ return new class extends Migration
             $table->bigInteger('rating');
             $table->string('title');
             $table->text('body');
-            $table->bigInteger('helpful_votes');
-            $table->bigInteger('unhelpful_votes');
+            //$table->bigInteger('helpful_votes'); modularizado
+            //$table->bigInteger('unhelpful_votes');
 
-            $table->foreignId('product_id');
-            $table->foreignId('user_id');
+            $table->foreignId('transaction_id');
         });
     }
 

@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'catureque+'.Str::random(3).'@gmail.com',
             'password' => Hash::make('password'),
         ]);
+
+       
+
     }
 }

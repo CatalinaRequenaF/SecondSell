@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
 
             //
-            $table->bigInteger('number');
-            $table->string('type');
+            $table->string('number');
+            $table->foreignId('user_id');
         });
     }
 

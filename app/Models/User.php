@@ -75,7 +75,7 @@ class User extends Authenticatable
         return $this->hasMany(Role::class);
     }
 
-    public function adress(): HasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
     }
@@ -111,6 +111,14 @@ class User extends Authenticatable
         return $this->morphMany(Discount::class, 'discountable');
     }
 
+    
+    //-----------------LISTA DE PRODUCTOS A LA VENTA--------------------
+    //----------------------------------------------------------------------------
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'seller_id');
+    }
+
     //-----------------LISTA DE PRODUCTOS COMPRADOS Y VENDIDOS--------------------
     //----------------------------------------------------------------------------
     public function productsSold()
@@ -122,6 +130,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class, 'buyer_id');
     }
+
+
 
     //----------REVIEWS DE LOS PRODUCTOD VENDIDOS Y COMPRADOS (Hechas y recibidas)-----------
     //---------------------------------------------------------------------------------------
@@ -135,4 +145,11 @@ class User extends Authenticatable
         return $this->hasMany(Review::class, 'to_user_id');
     }
 
+    
+    //---------------------------------------------PEDIDOS----------------------------------
+    //---------------------------------------------------------------------------------------
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
