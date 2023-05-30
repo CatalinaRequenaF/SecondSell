@@ -24,7 +24,7 @@ class ProductController extends Controller
     /**
      * Muestra los detalles de un producto específico.
      *
-     * @param  int  $id
+     * @param  integer  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
@@ -55,7 +55,7 @@ class ProductController extends Controller
      * Actualiza un producto existente en la base de datos.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  integer  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -75,7 +75,7 @@ class ProductController extends Controller
     /**
      * Elimina un producto de la base de datos.
      *
-     * @param  int  $id
+     * @param  integer  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)

@@ -12,11 +12,11 @@ class Address extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array<integer, string>
      */
     protected $fillable = [
         'street',
-        'number',
+        'integer',
         'complement',
         'city',
         'state',

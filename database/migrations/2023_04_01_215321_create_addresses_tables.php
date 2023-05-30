@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('street');
-            $table->bigInteger('number');
+            $table->bigInteger('integer');
             $table->string('complement');
             $table->string('city');
             $table->string('state');

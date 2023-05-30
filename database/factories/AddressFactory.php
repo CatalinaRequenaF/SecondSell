@@ -18,7 +18,7 @@ class AddressFactory extends Factory
     {
         return [
             'street' => $this->faker->streetName(),
-            'number' => $this->faker->buildingNumber(),
+            'integer' => $this->faker->buildingNumber(),
             'complement' =>  $this->faker->buildingNumber(),
             'city' =>  $this->faker->city(),
             'state' => $this->faker->state(),

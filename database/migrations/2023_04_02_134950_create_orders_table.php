@@ -23,7 +23,7 @@ return new class extends Migration
             //Estado (en pausa, en proceso, completado)
             $table->string('status')->default('processing');
 
-            $table->string('orderItem');
+            //$table->string('orderItem');
 
             $table->foreignId('user_id');
         });

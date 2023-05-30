@@ -19,7 +19,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<\Throwable>>
+     * @var array<integer, class-string<\Throwable>>
      */
     protected $dontReport = [
         //
@@ -28,7 +28,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed to the session on validation exceptions.
      *
-     * @var array<int, string>
+     * @var array<integer, string>
      */
     protected $dontFlash = [
         'current_password',

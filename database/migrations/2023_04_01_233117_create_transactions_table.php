@@ -21,7 +21,7 @@ return new class extends Migration
             ///Fk's
             $table->foreignId('seller_id');
             $table->foreignId('buyer_id');
-            $table->foreignId('order_id');
+            $table->foreignId('orderId');
 
             $table->foreign('seller_id')->references('id')->on('users');
             $table->foreign('buyer_id')->references('id')->on('users');

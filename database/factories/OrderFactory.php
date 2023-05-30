@@ -30,7 +30,8 @@ class OrderFactory extends Factory
      
         // Associate this order with the user
         $order->user()->associate($user);       
-        
+          // Save order
+        $order->save();
         // Associate items to this order
         foreach ($products as $product) {
 
@@ -42,7 +43,7 @@ class OrderFactory extends Factory
 
             // Associate the product to the order item
             $orderItem->product()->associate($product);
-            $orderItem->name=$product->name();
+            //$orderItem->name=$product->name();
 
             // Save order item
             $orderItem->save();

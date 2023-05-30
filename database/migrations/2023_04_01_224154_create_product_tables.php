@@ -18,13 +18,14 @@ return new class extends Migration
             $table->decimal('price');
             $table->text('state'); //Muy usado, semi nuevo, nuevo
             $table->string('active'); //Disponible (o no)
+            $table->string('photo'); 
             $table->timestamps();
 
 
             //Fk's
             $table->foreignId('seller_id');
             $table->foreignId('buyer_id')->nullable();
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('category_id');
 
             
         $table->foreign('seller_id')->references('id')->on('users');

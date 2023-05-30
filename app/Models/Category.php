@@ -14,7 +14,7 @@ class Category extends Model
         /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array<integer, string>
      */
     protected $fillable = [
         'name',
