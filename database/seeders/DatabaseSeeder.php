@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        
         Category::factory(10)->create();
 
         //Creación de 10 usuarios

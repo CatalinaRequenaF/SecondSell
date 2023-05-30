@@ -21,23 +21,46 @@ class OrderFactory extends Factory
 
     public function definition(): array
     {
+
         $user = User::inRandomOrder()->first();
         $products = Product::inRandomOrder()->limit(3)->get();
 
+        // Create order
         $order = new Order();
-        $order->user()->associate($user);
-        $order->save();
-
+     
+        // Associate this order with the user
+        $order->user()->associate($user);       
+        
+        // Associate items to this order
         foreach ($products as $product) {
-            $orderItem = new OrderItem();
+
+            // Create item order
+            $orderItem = new OrderItem();   
+
+            // Associate this item to the order
             $orderItem->order()->associate($order);
+
+            // Associate the product to the order item
             $orderItem->product()->associate($product);
+            $orderItem->name=$product->name();
+
+            // Save order item
             $orderItem->save();
+
         }
-
         
-
+        var_export($order->getAttributes()); die(); 
         
+        $order->save();       
+        
+        die('hols');   
+
+
+
+        //$order->save();
+
+
+
     $order->calculateSubtotal();
 
         return [];

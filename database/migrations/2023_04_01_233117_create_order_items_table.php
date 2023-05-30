@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price');
 
             ///Fk's
+            $table->foreignId('order_id');
             $table->foreignId('seller_id');
             $table->foreignId('buyer_id')->nullable();
             $table->foreignId('discount_id')->nullable();
