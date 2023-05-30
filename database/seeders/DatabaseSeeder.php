@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -24,18 +25,24 @@ class DatabaseSeeder extends Seeder
         User::factory(10)
         //2 direcciones por usuario
         ->hasAddresses(2)
-        ->hasCart()
         ->hasPhone()
         ->hasProducts(3)
         ->create();
-    
 
+        $users = User::all();
+        foreach ($users as $user){
+            $cart = new Cart();
+            $cart->user_id = $user->id;
+            $cart->save();
+        };
+
+        Order::factory(3)->create();
 
         
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-    }
+        }
+    
 }

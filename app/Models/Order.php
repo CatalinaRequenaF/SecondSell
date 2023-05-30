@@ -12,6 +12,13 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        // Otros atributos...
+        'subtotal',
+    ];
+
+
+
     //Un pedido pertenece a un usuario 
     public function user(): BelongsTo
     {
@@ -42,4 +49,19 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }    
+
+     // Calcular subtotal
+
+     public function calculateSubtotal()
+     {
+         $subtotal = 0;
+ 
+         foreach ($this->orderItems as $orderItem) {
+             $subtotal += $orderItem->product->price;
+         }
+ 
+         $this->subtotal = $subtotal;
+         $this->total = $subtotal;
+         $this->save();
+     }
 }
