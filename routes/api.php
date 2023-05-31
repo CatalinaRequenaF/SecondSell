@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AddressController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\DiscountController;
-use App\Http\Controllers\FollowController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\DiscountController;
+use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\OrderController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,13 +29,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//--------------------Registro de usuarios----------------------------
-Route::middleware('auth:api')->post('/register');
-
-//--------------------Login de usuarios----------------------------
-Route::middleware('auth:api')->post('/login');
-
-
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
+  
+    Route::group(['middleware' => 'auth:api'], function() {
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+    });
 
 //########### RUTAS QUE REQUIEREN INICIO DE SESIÓN/AUTORIZACIÓN #########
 

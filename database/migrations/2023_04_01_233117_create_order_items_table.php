@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
+            //$table->string('name');
             $table->decimal('price');
 
             ///Fk's
             $table->foreignId('order_id');
             $table->foreignId('seller_id');
             $table->foreignId('buyer_id')->nullable();
-            $table->foreignId('discount_id')->nullable();
+            //$table->foreignId('discount_id')->nullable();
             $table->foreignId('product_id');
 
 

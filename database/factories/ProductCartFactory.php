@@ -18,6 +18,7 @@ class ProductCartFactory extends Factory
     {
         return [
             //
+            $this->
         ];
     }
 }

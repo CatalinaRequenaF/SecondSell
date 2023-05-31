@@ -23,20 +23,29 @@ class OrderFactory extends Factory
     {
 
         $user = User::inRandomOrder()->first();
-        $products = Product::inRandomOrder()->limit(3)->get();
+        //Confirmo quue es tipo objeto  
+        $user_id = $user->id;
+        die($user_id);
 
+        $products = Product::inRandomOrder()->limit(3)->get();
         // Create order
         $order = new Order();
-     
-        // Associate this order with the user
-        $order->user()->associate($user);       
+
+        $order->user_id = $user_id;
+
           // Save order
         $order->save();
+        
+        // Associate this order with the user
+        
         // Associate items to this order
         foreach ($products as $product) {
-
             // Create item order
-            $orderItem = new OrderItem();   
+            $orderItem = new OrderItem();
+            $orderItem->price = $product->price;
+            $orderItem->seller_id=$product->seller_id;
+
+            
 
             // Associate this item to the order
             $orderItem->order()->associate($order);
@@ -50,14 +59,14 @@ class OrderFactory extends Factory
 
         }
         
-        var_export($order->getAttributes()); die(); 
+//        var_export($order->getAttributes()); die(); 
         
         $order->save();       
         
-        die('hols');   
+   //     die('hols');   
 
 
-
+        
         //$order->save();
 
 

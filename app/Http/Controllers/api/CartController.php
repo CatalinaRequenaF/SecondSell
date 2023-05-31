@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
@@ -76,6 +76,21 @@ class CartController extends Controller
 
         return response()->json([
             'message' => 'El producto se ha eliminado del carrito.'
+        ]);
+    }
+    
+    /**
+     * Obtener el carrito de compras del usuario actual.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $user = Auth::user();
+        $carts = Cart::where('user_id', $user->id)->with('products')->get();
+
+        return response()->json([
+            'carts' => $carts
         ]);
     }
 }
