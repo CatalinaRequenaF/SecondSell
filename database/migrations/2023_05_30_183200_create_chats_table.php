@@ -17,9 +17,7 @@ return new class extends Migration
             $table->integer('emit');
             $table->integer('recept');
             $table->foreignId('product_id')->nullable();
-
-
-
+            $table->foreignId('user_id');
         });
     }
 

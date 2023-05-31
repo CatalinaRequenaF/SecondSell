@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Chat;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -30,17 +31,30 @@ class DatabaseSeeder extends Seeder
         ->hasProducts(3)
         ->create();
 
-        //Creando Carrito para cada usuario
+        //Creando Carrito (1 peoducto) y Chat (Por el mismo producto) para cada usuario
         $users = User::all();
         foreach ($users as $user){
             $cart = new Cart();
             $cart->user_id = $user->id;
             $cart->save();
 
+            //Añadir producto a carrito
             $product = Product::inRandomOrder()->limit(1)->first();
+            $product->carts()->save($cart);
+            
 
+            //Crear chat
+            $chat = new Chat();
+            $chat->user_id = $user->id;
+       
+            //Asignar el mismo producto a chat
+            $chat->product_id = $product->id;
+
+            //Guardar
+            $chat->save();
         };
 
+      
         
 
         Order::factory(3)->create();
