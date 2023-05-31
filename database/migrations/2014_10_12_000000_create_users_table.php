@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('username');
             $table->string('email')->unique();  
-            $table->string('photo');
+            $table->string('photo')->default('default.jgp');
                 
 
             $table->timestamp('email_verified_at')->nullable();
