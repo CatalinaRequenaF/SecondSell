@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\Sanctum;
 
 class AuthController extends Controller
 {
@@ -18,7 +21,8 @@ class AuthController extends Controller
 
             'email'    => 'required|string|email|unique:users',
             'password' => 'required|string',
-        ]);        $user = new \App\Models\User([
+        ]);
+        $user = new \App\Models\User([
             'name'     => $request->name,
             'lastname'     => $request->lastname,
             'username'     => $request->username,
@@ -26,38 +30,48 @@ class AuthController extends Controller
 
             'email'    => $request->email,
             'password' => bcrypt($request->password),
-        ]);        $user->save();        return response()->json([
-            'message' => 'Usuario creado satisfactoriamente!'], 201);
-    }    public function login(Request $request)
+        ]);
+        $user->save();
+        return response()->json([
+            'message' => 'Usuario creado satisfactoriamente!'
+        ], 201);
+    }
+
+    public function login(Request $request)
     {
         $request->validate([
             'email'       => 'required|string|email',
             'password'    => 'required|string',
-           // 'remember_me' => 'boolean',
-        ]);        $credentials = request(['email', 'password']);
+            // 'remember_me' => 'boolean',
+        ]);
+        $credentials = request(['email', 'password']);
+        
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Unauthorized'], 401);
-        }        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;        if ($request->remember_me) {
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        }        $token->save();        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type'   => 'Bearer',
-            'expires_at'   => Carbon::parse(
-                $tokenResult->token->expires_at)
-                    ->toDateTimeString(),
-        ]);
+                'message' => 'Correo o contraseña incorrectos'
+            ], 401);
+        }
+        
+        $user = User::where('email', $request->email)->first();
+        return response()->json([
+            'status'=>true,
+            'message'=>'Usuario loggeado satisfactoriamente',
+            'data' => $user,
+            'token' => $user->createToken('bearer Token')->plainTextToken], 200);
+       
     }
+    
+
+
+
     public function logout(Request $request)
     {
-        $request->user()->token()->revoke();        return response()->json(['message' => 
-            'Has salido de la sesión satisfactoriamente']);
+        $request->user()->token()->revoke();
+        return response()->json(['message' =>
+        'Has salido de la sesión satisfactoriamente']);
     }
     public function user(Request $request)
     {
         return response()->json($request->user());
     }
 }
-

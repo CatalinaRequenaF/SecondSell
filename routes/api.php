@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,13 +41,13 @@ Route::group(['prefix' => 'auth'], function () {
 //######################## USUARIO ############################
 
 //--------------------Perfil del usuario (Sanctum)----------------------------
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
 
-Route::middleware('auth:api')->group(function(){
+Route::middleware('auth:sanctum')->group(function(){
 
     //--Crear, actualizar y borrar categorías--------------
     Route::apiResource('categories', CategoryController::class)->except([
@@ -73,6 +74,11 @@ Route::middleware('auth:api')->group(function(){
     //--seguidores 
     Route::apiResource('{user}/followers', FollowController::class);
     Route::apiResource('{user}/followed', FollowController::class);
+
+
+    //--Chat 
+    Route::apiResource('{user}/chats/', ChatController::class);
+    Route::apiResource('{user}/chat/messages/', ChatController::class);
 
     //Imágenes de producto
 
